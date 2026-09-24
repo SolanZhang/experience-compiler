@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  compiler:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run generate
+      - run: git diff --exit-code -- src/generated
+      - run: npm test
+      - uses: actions/checkout@v4
+        with:
+          repository: SolanZhang/coRoof
+          ref: ddd6cc0c1fd473f223188375d8ddf69c0c1eb279
+          path: .integration/core
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.26.x'
+          cache: false
+      - run: npm run test:integration -- .integration/core

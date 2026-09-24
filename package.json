@@ -1,0 +1,30 @@
+{
+  "name": "@coroof/experience-compiler",
+  "version": "0.1.0-dev",
+  "private": true,
+  "description": "Work Experience Contract to Experience IR compiler for coRoof",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "test:integration": "npm run build && node scripts/integration.mjs",
+    "demo": "npm run build && node dist/cli.js examples/contract-approval.json"
+  },
+  "dependencies": {
+    "ajv": "8.20.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.0.0",
+    "json-schema-to-typescript": "15.0.4",
+    "typescript": "5.9.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SolanZhang/experience-compiler.git"
+  }
+}
